@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Project List (Dashboard)</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@100..900&amp;family=Noto+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3c83f6",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#101722",
+                        "surface-dark": "#1C232E", 
+                    },
+                    fontFamily: {
+                        "display": ["Noto Serif", "serif"],
+                        "body": ["Noto Sans", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: "Noto Sans", sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6, .font-display {
+            font-family: "Noto Serif", serif;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen relative">
+<!-- Main Container -->
+<div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden pb-24">
+<!-- Header -->
+<header class="sticky top-0 z-20 flex items-center bg-background-light dark:bg-background-dark p-4 justify-between border-b border-gray-200 dark:border-gray-800/50 backdrop-blur-md bg-opacity-90 dark:bg-opacity-90">
+<div class="flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors cursor-pointer text-gray-900 dark:text-white">
+<span class="material-symbols-outlined">menu</span>
+</div>
+<h2 class="text-gray-900 dark:text-white text-xl font-bold leading-tight tracking-[-0.015em] flex-1 text-center font-display">My Bookshelf</h2>
+<div class="flex size-10 items-center justify-end">
+<button class="flex size-10 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-gray-200 dark:bg-surface-dark text-white gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0 border border-gray-300 dark:border-gray-700">
+<img alt="User Profile" class="h-full w-full object-cover" data-alt="Portrait of a young woman with curly hair" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBM8mUem4v6EC9m_Dfnox7PhT5RBtHXsIA9MQPnWzUEqU32E5OSknF8Tz6PlfRmmduGfDh8zrXRewWCA7MxtQEpeS0aHcdECaYZCwO_QLGFjWxCpBOA8sPxQUf9NJFq1Loi9PBxoIEiHf-3AYNU9cJ9asVUvhtP7XFjm1jyLuPoKN_ipJ5OepgL071PjbjHvnppx0TPJDLNGchsA82MbTUwa1R-HR_nkV3HfmbcDxq9AAhNqkofSu79TAjdtymTcJyS0Hkj1kWzTcf4"/>
+</button>
+</div>
+</header>
+<!-- Search Bar -->
+<div class="px-4 py-3 sticky top-[73px] z-10 bg-background-light dark:bg-background-dark">
+<label class="flex flex-col min-w-40 h-12 w-full shadow-sm">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-700">
+<div class="text-gray-500 dark:text-[#9ca7ba] flex items-center justify-center pl-4 pr-2">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg rounded-l-none bg-transparent text-gray-900 dark:text-white focus:outline-0 focus:ring-0 border-none h-full placeholder:text-gray-400 dark:placeholder:text-[#9ca7ba] px-2 text-base font-normal leading-normal font-body" placeholder="Search titles or genres" value=""/>
+</div>
+</label>
+</div>
+<!-- Filter Chips -->
+<div class="flex gap-3 px-4 pb-4 overflow-x-auto no-scrollbar pt-2">
+<button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary pl-4 pr-4 transition-transform active:scale-95">
+<p class="text-white text-sm font-medium leading-normal font-display">All Projects</p>
+</button>
+<button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-700 pl-4 pr-4 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+<p class="text-gray-700 dark:text-white text-sm font-medium leading-normal font-display">Sci-Fi</p>
+</button>
+<button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-700 pl-4 pr-4 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+<p class="text-gray-700 dark:text-white text-sm font-medium leading-normal font-display">Fantasy</p>
+</button>
+<button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-700 pl-4 pr-4 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+<p class="text-gray-700 dark:text-white text-sm font-medium leading-normal font-display">Mystery</p>
+</button>
+<button class="flex h-8 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-surface-dark border border-gray-200 dark:border-gray-700 pl-4 pr-4 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+<p class="text-gray-700 dark:text-white text-sm font-medium leading-normal font-display">Romance</p>
+</button>
+</div>
+<!-- Project List -->
+<div class="px-4 flex flex-col gap-4">
+<!-- Card 1 -->
+<div class="group relative flex overflow-hidden rounded-xl bg-white dark:bg-surface-dark shadow-sm border border-gray-200 dark:border-gray-800 transition-all hover:shadow-md active:scale-[0.99]">
+<!-- Book Cover Thumbnail -->
+<div class="w-24 bg-gray-200 dark:bg-gray-800 shrink-0 aspect-[2/3] bg-cover bg-center relative" data-alt="Abstract blue geometric pattern representing a sci-fi book cover" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBeXvKfk0SKGF3EQXR9ou7JzUWZ1bsgIuT8_TrMFEVTkurhwh2tuSA2ig4hu7pFc80JuiFk0qy31CeSQdgmb4ZLY1PoA3hGFIy2OIkhOfYfsalWo8SvZcjGoOeLTc_9uKCfNCHq_1Eu9rsy2DAJKZH0FZ4kQ34OSia9iN02x7N_WnAyk4Vg_SljgL0EkaRKeC_CzcumFyzfdR9WwXQL_aS1x_HKOjrlrMNfziFW5cCW8tYY5HlWybkMBcVXlVE9urf_ihYSoq4rsNRT");'>
+<div class="absolute inset-0 bg-black/10 dark:bg-black/40"></div>
+</div>
+<div class="flex flex-1 flex-col p-4 justify-between">
+<!-- Top Row: Genre & Menu -->
+<div class="flex justify-between items-start mb-1">
+<span class="inline-flex items-center rounded-md bg-blue-50 dark:bg-blue-900/30 px-2 py-1 text-xs font-medium text-blue-700 dark:text-blue-300 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-400/20 font-display">Sci-Fi</span>
+<button class="text-gray-400 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700/50 -mt-1 -mr-2">
+<span class="material-symbols-outlined" style="font-size: 20px;">more_vert</span>
+</button>
+</div>
+<!-- Title & Synopsis -->
+<div class="mb-3">
+<h3 class="text-gray-900 dark:text-white text-lg font-bold leading-tight font-display mb-1">The Silent Echo</h3>
+<p class="text-gray-500 dark:text-[#9ca7ba] text-sm font-normal leading-snug line-clamp-2 font-body">In a world where sound is currency, one girl discovers a frequency that could change everything about the silent empire.</p>
+</div>
+<!-- Metadata -->
+<div class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400 font-body border-t border-gray-100 dark:border-gray-800 pt-3 mt-auto">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary" style="font-size: 16px;">history_edu</span>
+<span class="font-medium">45,200 words</span>
+</div>
+<div class="flex items-center gap-1.5 ml-auto">
+<span class="material-symbols-outlined" style="font-size: 16px;">schedule</span>
+<span>Edited 2h ago</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="group relative flex overflow-hidden rounded-xl bg-white dark:bg-surface-dark shadow-sm border border-gray-200 dark:border-gray-800 transition-all hover:shadow-md active:scale-[0.99]">
+<!-- Book Cover Thumbnail -->
+<div class="w-24 bg-gray-200 dark:bg-gray-800 shrink-0 aspect-[2/3] bg-cover bg-center relative" data-alt="Dark mysterious Venice carnival mask photography" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuChYYqCTR56vrf9KPJC2sjO-QjJeibZibuMvPX5w9h5gwIOpfghk9GBMhupbehFJrIEKnLZ4wuDfQr3_EDaYGJE6AC5p92Jz2BAXtG8LUjcXZ_Am-LQYKIjO_xUasu0bpOJlq3yPP8ahrXRpipJJLIHBRNk2YpIcj8fpl1Qrdf_8k8Yyz9SY-1mnwNH4qnloPsogx-6I_6ao8F2s95HRbAwKSldh5DbkhVmkVoAoM3vebid-BMbsTaVLURIGJS8lE7_obCuhQK9GOoL");'>
+<div class="absolute inset-0 bg-black/10 dark:bg-black/40"></div>
+</div>
+<div class="flex flex-1 flex-col p-4 justify-between">
+<div class="flex justify-between items-start mb-1">
+<span class="inline-flex items-center rounded-md bg-purple-50 dark:bg-purple-900/30 px-2 py-1 text-xs font-medium text-purple-700 dark:text-purple-300 ring-1 ring-inset ring-purple-700/10 dark:ring-purple-400/20 font-display">Mystery</span>
+<button class="text-gray-400 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700/50 -mt-1 -mr-2">
+<span class="material-symbols-outlined" style="font-size: 20px;">more_vert</span>
+</button>
+</div>
+<div class="mb-3">
+<h3 class="text-gray-900 dark:text-white text-lg font-bold leading-tight font-display mb-1">Midnight in Venice</h3>
+<p class="text-gray-500 dark:text-[#9ca7ba] text-sm font-normal leading-snug line-clamp-2 font-body">A detective story set during the height of the carnival, where masks hide more than just faces in the shadows of the canals.</p>
+</div>
+<div class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400 font-body border-t border-gray-100 dark:border-gray-800 pt-3 mt-auto">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary" style="font-size: 16px;">history_edu</span>
+<span class="font-medium">12,500 words</span>
+</div>
+<div class="flex items-center gap-1.5 ml-auto">
+<span class="material-symbols-outlined" style="font-size: 16px;">schedule</span>
+<span>Edited 1d ago</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="group relative flex overflow-hidden rounded-xl bg-white dark:bg-surface-dark shadow-sm border border-gray-200 dark:border-gray-800 transition-all hover:shadow-md active:scale-[0.99]">
+<!-- Book Cover Thumbnail -->
+<div class="w-24 bg-gray-200 dark:bg-gray-800 shrink-0 aspect-[2/3] bg-cover bg-center relative" data-alt="Golden ornate fantasy style texture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuApHWqBYHLpaReRBIxwHspI9wy3ppn2pi_6QZGUSco5-QkmNN67TyDJO1DftGh6bweILU35aiELprA7KRgQt7Qo5yeSMuZ1zXwPxpYolSALFW-L-2Wl6-0CiKTrcs2wxnPsMJQihNxsAnn50kyU_tjA6p_fsUom4marbBS-jS9AGm_QubEUrBBTUER2aSUL6gXGY2T_V7HkIbVGGI9tJuFPLOWJ5qX_ciqt8N98Y7qL4G7Z9vqXVSaq3iqrGX_dD783bex2XrL3vqCx");'>
+<div class="absolute inset-0 bg-black/10 dark:bg-black/40"></div>
+</div>
+<div class="flex flex-1 flex-col p-4 justify-between">
+<div class="flex justify-between items-start mb-1">
+<span class="inline-flex items-center rounded-md bg-amber-50 dark:bg-amber-900/30 px-2 py-1 text-xs font-medium text-amber-700 dark:text-amber-300 ring-1 ring-inset ring-amber-700/10 dark:ring-amber-400/20 font-display">Fantasy</span>
+<button class="text-gray-400 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700/50 -mt-1 -mr-2">
+<span class="material-symbols-outlined" style="font-size: 20px;">more_vert</span>
+</button>
+</div>
+<div class="mb-3">
+<h3 class="text-gray-900 dark:text-white text-lg font-bold leading-tight font-display mb-1">The Glass Kingdom</h3>
+<p class="text-gray-500 dark:text-[#9ca7ba] text-sm font-normal leading-snug line-clamp-2 font-body">The throne is brittle, and the new queen walks on shards of glass. A tale of fragile power.</p>
+</div>
+<div class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400 font-body border-t border-gray-100 dark:border-gray-800 pt-3 mt-auto">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-primary" style="font-size: 16px;">history_edu</span>
+<span class="font-medium">89,100 words</span>
+</div>
+<div class="flex items-center gap-1.5 ml-auto">
+<span class="material-symbols-outlined" style="font-size: 16px;">schedule</span>
+<span>Edited 3d ago</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card 4 (New Idea) -->
+<div class="group relative flex overflow-hidden rounded-xl bg-white dark:bg-surface-dark shadow-sm border border-gray-200 dark:border-gray-800 transition-all hover:shadow-md active:scale-[0.99] opacity-75">
+<!-- Book Cover Thumbnail -->
+<div class="w-24 bg-gray-100 dark:bg-gray-800 shrink-0 aspect-[2/3] flex items-center justify-center border-r border-gray-100 dark:border-gray-800">
+<span class="material-symbols-outlined text-gray-300 dark:text-gray-600 text-4xl">book_2</span>
+</div>
+<div class="flex flex-1 flex-col p-4 justify-between">
+<div class="flex justify-between items-start mb-1">
+<span class="inline-flex items-center rounded-md bg-gray-100 dark:bg-gray-800 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-400 font-display">Draft</span>
+<button class="text-gray-400 dark:text-gray-500 hover:text-gray-900 dark:hover:text-white p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700/50 -mt-1 -mr-2">
+<span class="material-symbols-outlined" style="font-size: 20px;">more_vert</span>
+</button>
+</div>
+<div class="mb-3">
+<h3 class="text-gray-900 dark:text-white text-lg font-bold leading-tight font-display mb-1 italic">Untitled Project 4</h3>
+<p class="text-gray-500 dark:text-[#9ca7ba] text-sm font-normal leading-snug line-clamp-2 font-body italic">No synopsis available yet. Start writing to add details.</p>
+</div>
+<div class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400 font-body border-t border-gray-100 dark:border-gray-800 pt-3 mt-auto">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-gray-400" style="font-size: 16px;">history_edu</span>
+<span class="font-medium">0 words</span>
+</div>
+<div class="flex items-center gap-1.5 ml-auto">
+<span class="material-symbols-outlined" style="font-size: 16px;">schedule</span>
+<span>Created 1w ago</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Action Button (New Project) -->
+<div class="fixed bottom-6 right-6 z-30">
+<button class="flex items-center justify-center gap-2 h-14 pl-5 pr-6 rounded-full bg-primary hover:bg-blue-600 text-white shadow-[0_8px_30px_rgb(60,131,246,0.3)] transition-all transform hover:scale-105 active:scale-95">
+<span class="material-symbols-outlined text-[28px]">add_circle</span>
+<span class="font-display font-bold text-base tracking-wide">New Project</span>
+</button>
+</div>
+<!-- Bottom Safe Area Spacer -->
+<div class="h-6 w-full"></div>
+</div>
+</body></html>

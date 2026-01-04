@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Editor (Chapter View)</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#3c83f6",
+              "background-light": "#f5f7f8",
+              "background-dark": "#101722",
+              "surface-dark": "#1c2430",
+            },
+            fontFamily: {
+              "display": ["Noto Serif", "serif"],
+              "sans": ["Noto Sans", "sans-serif"],
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #374151;
+            border-radius: 3px;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark transition-colors duration-200">
+<div class="relative flex h-full min-h-screen w-full flex-col font-display text-slate-900 dark:text-white overflow-hidden">
+<!-- Header -->
+<header class="flex items-center justify-between bg-white dark:bg-background-dark border-b border-gray-200 dark:border-gray-800 p-4 sticky top-0 z-20">
+<!-- Left: Back / Dashboard -->
+<button class="flex size-10 items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-surface-dark transition-colors text-slate-900 dark:text-white">
+<span class="material-symbols-outlined">arrow_back_ios_new</span>
+</button>
+<!-- Center: Project & Chapter Info -->
+<div class="flex flex-col items-center justify-center flex-1 mx-2 cursor-pointer group">
+<span class="text-xs font-sans font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-0.5">The Last Starship</span>
+<div class="flex items-center gap-1">
+<span class="text-base font-bold leading-none">Chapter 3</span>
+<span class="material-symbols-outlined text-gray-400 text-[16px] group-hover:text-primary transition-colors">expand_more</span>
+</div>
+</div>
+<!-- Right: Actions -->
+<div class="flex items-center justify-end gap-1">
+<!-- Auto-save Indicator -->
+<span class="hidden sm:flex items-center text-primary text-xs font-sans font-medium mr-2 bg-primary/10 px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-[14px] mr-1">cloud_done</span> Saved
+                </span>
+<button class="flex size-10 items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-surface-dark transition-colors text-slate-900 dark:text-white">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</header>
+<!-- Main Editor Area -->
+<main class="flex-1 overflow-y-auto w-full relative">
+<div class="max-w-2xl mx-auto px-6 py-6 pb-32">
+<!-- Saved Status (Mobile Only) -->
+<div class="flex sm:hidden justify-center mb-6 opacity-60">
+<p class="text-gray-500 dark:text-[#9ca7ba] text-xs font-sans font-normal flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                        Saved just now
+                    </p>
+</div>
+<!-- Chapter Cover Image -->
+<div class="w-full aspect-[21/9] rounded-xl overflow-hidden mb-8 relative shadow-lg group">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+<div class="w-full h-full bg-cover bg-center transform transition-transform duration-700 group-hover:scale-105" data-alt="Abstract nebula and starfield in deep space with red and blue hues" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAM7yOYsPf-P1Y50j3_bDtCbUALV-v-FPG1FJN02NGAhXTJgkzwvDPSaS4306kYYux_xs9RGTLw5eDevAoREpxM4gUfcX5tsivOnP_lWk2cvVlmSu1SpHvY8nV1xHSHtUFwhaaoetE0Pyx-Doxt7AjQ6Isj1FdkJQoVdiF6kCcR3pVH22aSG5MJNTc0gEMlHfEGF9rfleatecyN9E1pHihb_iljeS64zijenB_a9NMYxvd98rtaPfcj2HVtWaNTdmaAunVdbZVNuLmO");'>
+</div>
+<div class="absolute bottom-3 right-3 z-20">
+<button class="bg-black/50 backdrop-blur-md p-1.5 rounded-lg text-white hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">image</span>
+</button>
+</div>
+</div>
+<!-- Chapter Title Input -->
+<input class="w-full bg-transparent border-none text-4xl font-bold text-slate-900 dark:text-white placeholder-gray-500 focus:ring-0 px-0 py-2 mb-4 leading-tight" placeholder="Chapter Title" type="text" value="Survival"/>
+<!-- Editor Content -->
+<div class="prose prose-lg dark:prose-invert max-w-none text-slate-700 dark:text-gray-300 leading-relaxed">
+<p>
+                        The engine hummed a low, dying note as the red warning lights bathed the cockpit in an eerie glow. It wasn't the silence that scared him, but the sudden vibration that rattled his teeth. He gripped the controls, knuckles white, knowing that the landing gear had been sheared off in the asteroid field miles back.
+                    </p>
+<p>
+                        "Hold on," he whispered to no one in particular, his voice barely audible over the screaming atmospheric entry. The planet below was a swirl of brown and green, rushing up to meet him faster than his calculations had predicted.
+                    </p>
+<p>
+                        The console sparked, spitting a shower of hot embers onto his flight suit. He slapped them away instinctively, his eyes never leaving the altimeter. 
+                        <span class="bg-primary/20 text-white px-1 rounded mx-0.5">Three thousand feet.</span> 
+                        Too fast. He was coming in way too fast. He toggled the thruster sequence, praying the auxiliary fuel lines were still intact.
+                    </p>
+<p>
+<i>Thud.</i> A dull impact reverberated through the hull. Then another. The ship groaned, metal twisting under stress it wasn't designed for. He squeezed his eyes shut as the ground filled the viewport, bracing for the inevitable crash that would either end his journey or begin a much harder one.
+                    </p>
+<p>
+                        Silence followed. Not the peaceful kind, but the ringing silence of shock. Dust motes danced in the shafts of sunlight piercing through the rent hull. He unbuckled, his hands shaking, and took his first breath of the alien air. It tasted metallic, like copper and rain.
+                    </p>
+<p>
+                        He was alive. But for how long?
+                    </p>
+<p>
+                        He unbuckled, his hands shaking, and took his first breath of the alien air. It tasted metallic, like copper and rain. He was alive. But for how long?
+                    </p>
+</div>
+<!-- End of content spacer -->
+<div class="h-12 w-full flex items-center justify-center my-8">
+<span class="h-1 w-1 bg-gray-600 rounded-full mx-1"></span>
+<span class="h-1 w-1 bg-gray-600 rounded-full mx-1"></span>
+<span class="h-1 w-1 bg-gray-600 rounded-full mx-1"></span>
+</div>
+</div>
+</main>
+<!-- Bottom Toolbar (Fixed) -->
+<div class="absolute bottom-0 w-full z-30">
+<!-- Word Count & Info (Floating above toolbar) -->
+<div class="flex justify-end px-4 mb-2 pointer-events-none">
+<div class="bg-gray-900/80 backdrop-blur-sm text-gray-300 text-xs font-sans px-3 py-1.5 rounded-lg shadow-sm border border-gray-700/50">
+                    342 words • 2 mins read
+                </div>
+</div>
+<!-- Toolbar Container -->
+<div class="bg-white dark:bg-[#151c26] border-t border-gray-200 dark:border-gray-800 pb-safe pt-2 px-2 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
+<!-- Formatting Tools Row -->
+<div class="flex items-center justify-between max-w-2xl mx-auto h-12">
+<!-- Text Formatting Group -->
+<div class="flex items-center gap-1 overflow-x-auto hide-scrollbar pl-1">
+<button class="h-10 w-10 flex shrink-0 items-center justify-center rounded-lg text-slate-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-surface-dark transition-colors active:text-primary active:bg-primary/10">
+<span class="material-symbols-outlined font-semibold text-[22px]">format_bold</span>
+</button>
+<button class="h-10 w-10 flex shrink-0 items-center justify-center rounded-lg text-slate-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-surface-dark transition-colors bg-primary/20 text-primary dark:text-primary">
+<span class="material-symbols-outlined font-semibold text-[22px]">format_italic</span>
+</button>
+<button class="h-10 w-10 flex shrink-0 items-center justify-center rounded-lg text-slate-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-surface-dark transition-colors">
+<span class="material-symbols-outlined font-semibold text-[22px]">format_underlined</span>
+</button>
+<div class="w-px h-5 bg-gray-300 dark:bg-gray-700 mx-1"></div>
+<button class="h-10 w-10 flex shrink-0 items-center justify-center rounded-lg text-slate-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-surface-dark transition-colors">
+<span class="material-symbols-outlined font-semibold text-[20px]">format_size</span>
+</button>
+<button class="h-10 w-10 flex shrink-0 items-center justify-center rounded-lg text-slate-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-surface-dark transition-colors">
+<span class="material-symbols-outlined font-semibold text-[20px]">format_quote</span>
+</button>
+</div>
+<!-- History Group -->
+<div class="flex items-center gap-1 pl-2 border-l border-gray-200 dark:border-gray-700 ml-2">
+<button class="h-10 w-10 flex shrink-0 items-center justify-center rounded-lg text-slate-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-surface-dark transition-colors">
+<span class="material-symbols-outlined text-[20px]">undo</span>
+</button>
+<button class="h-10 w-10 flex shrink-0 items-center justify-center rounded-lg text-slate-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-surface-dark transition-colors opacity-50 cursor-not-allowed">
+<span class="material-symbols-outlined text-[20px]">redo</span>
+</button>
+</div>
+<!-- Keyboard Dismiss (Mobile) -->
+<button class="ml-2 h-10 w-12 flex shrink-0 items-center justify-center rounded-lg bg-primary hover:bg-blue-600 text-white transition-colors shadow-lg shadow-blue-500/20">
+<span class="material-symbols-outlined text-[24px]">keyboard_hide</span>
+</button>
+</div>
+<!-- Safe Area Spacing for iOS Home Indicator -->
+<div class="h-4 w-full"></div>
+</div>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Novel Writer - Onboarding</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Noto Serif -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#3c83f6",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#101722",
+                    },
+                    fontFamily: {
+                        "display": ["Noto Serif", "serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .scrollbar-hide {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark transition-colors duration-200">
+<div class="relative flex h-full min-h-screen w-full flex-col font-display text-[#111418] dark:text-white overflow-hidden">
+<!-- TopAppBar -->
+<div class="flex items-center justify-between bg-transparent p-4 pb-2 z-10">
+<!-- Hidden placeholder for balance -->
+<div class="w-12"></div>
+<h2 class="text-xl font-bold leading-tight tracking-[-0.015em] text-center">
+                Novel Writer
+            </h2>
+<!-- Skip button for onboarding context -->
+<button class="w-12 text-sm font-medium text-primary opacity-80 hover:opacity-100 transition-opacity">
+                Skip
+            </button>
+</div>
+<!-- Main Content Area: Carousel + Text -->
+<div class="flex-1 flex flex-col justify-center py-6">
+<!-- StoryCarousel (Modified for Onboarding Slider) -->
+<!-- Using snap-x for horizontal scrolling feel without JS -->
+<div class="flex w-full overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-6 px-4 gap-4">
+<!-- Slide 1 -->
+<div class="min-w-full flex flex-col items-center justify-start snap-center gap-6">
+<div class="w-full max-w-sm aspect-[4/5] bg-center bg-no-repeat bg-cover rounded-xl shadow-2xl shadow-primary/10 relative overflow-hidden group" data-alt="Minimalist illustration of a vintage typewriter on a dark desk with soft blue lighting" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAa8i16gEhELlAO3jKlgmw0Erbluk3D03cfiXsu8Blw0xWWV8LGSBmXg8ojYoo6iW9dIp19VEaooQkVdNFmcGJJiKIhoeLdGKG2pbM4KNJ5LfJbyBC0n0wj88BjzIy1vp0FE8DweD-T_VJ87_v0SXfD6fG3-5fid1uFv1MAIfKlGVoRPCtNy1pa3XQoBdCrbABEKggLAzUUgr_b2xS5lysxbB240mxLdwiwxeHEr533AGFMA0rYY5TYEvf7SddnKr-OcMFAVFD7nV4f");'>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent"></div>
+</div>
+<!-- Text Content for Slide 1 -->
+<div class="px-4 text-center max-w-xs">
+<h2 class="text-[28px] font-bold leading-tight pb-3">Distraction-Free Writing</h2>
+<p class="text-base font-normal leading-normal text-gray-500 dark:text-gray-400">
+                            Immerse yourself in your story with our intuitive, focused editor designed for flow states.
+                        </p>
+</div>
+</div>
+<!-- Slide 2 -->
+<div class="min-w-full flex flex-col items-center justify-start snap-center gap-6">
+<div class="w-full max-w-sm aspect-[4/5] bg-center bg-no-repeat bg-cover rounded-xl shadow-2xl shadow-primary/10 relative overflow-hidden" data-alt="Abstract visualization of a plot diagram with connecting character nodes" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBJzMwigcw4XPcKbwM5vi9MJgvW_44vPoWATz0DHZTAkoKPST03LCtac4fAIjr8ChpnU_TD1gKVVZeUMs_KtmXKdRRVgNSclg-C8bre1X_9XPZPH_4DXUFA2IewfPouLeiXPxAF8ul-GXmYWVUrzFy5ivMy2YKEyWd-RRQ4y_qwVdoU_iXze17HzA7JJzVVZ3valZy5KZe6yKzg7yMF35N2K9EvRS5WPC9IzpihvNNEmT_mHpeQf7ok2EzyYOoIr28ja8zqV8ZwoZk5");'>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent"></div>
+</div>
+<!-- Text Content for Slide 2 -->
+<div class="px-4 text-center max-w-xs">
+<h2 class="text-[28px] font-bold leading-tight pb-3">Master Your Plot</h2>
+<p class="text-base font-normal leading-normal text-gray-500 dark:text-gray-400">
+                            Organize characters, timelines, and research in one unified workspace.
+                        </p>
+</div>
+</div>
+<!-- Slide 3 -->
+<div class="min-w-full flex flex-col items-center justify-start snap-center gap-6">
+<div class="w-full max-w-sm aspect-[4/5] bg-center bg-no-repeat bg-cover rounded-xl shadow-2xl shadow-primary/10 relative overflow-hidden" data-alt="Laptop and phone showing synced documents on a wooden table" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC7KsUw8OKbpdtASuRLSN6nOUOyL4TaZpgwgNUMcaFmitkUL1jiDYWsRO54MyajP6YX3eJcjdwP0EwhkzoQKyXurrsRdrz-Tn2jThcwZNMGpRxbyzniBdz_-odYi0v7nUtcMx6y8C2urM6Jg6jpB--lWdRjmzrbPw6sYgWpBLB8O6hX7u_j5hjLSw0HMwILsuWPk5sgp9yK3s7hZ0EuPHUi6ORiQYe5N7f_vVuv8YFhH2flIlCXh5RAG2K5V_Dltmju1BH453eZCG87");'>
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent"></div>
+</div>
+<!-- Text Content for Slide 3 -->
+<div class="px-4 text-center max-w-xs">
+<h2 class="text-[28px] font-bold leading-tight pb-3">Creativity Everywhere</h2>
+<p class="text-base font-normal leading-normal text-gray-500 dark:text-gray-400">
+                            Seamlessly sync across all your devices. Never lose a sudden idea again.
+                        </p>
+</div>
+</div>
+</div>
+<!-- PageIndicators -->
+<div class="flex w-full flex-row items-center justify-center gap-3 py-4">
+<!-- Active Indicator -->
+<div class="h-2 w-6 rounded-full bg-primary transition-all duration-300"></div>
+<!-- Inactive Indicators -->
+<div class="h-2 w-2 rounded-full bg-gray-300 dark:bg-gray-700"></div>
+<div class="h-2 w-2 rounded-full bg-gray-300 dark:bg-gray-700"></div>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="flex flex-col gap-3 px-6 pb-8 pt-2">
+<!-- Primary Action -->
+<button class="flex w-full cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 bg-primary hover:bg-blue-600 transition-colors text-white text-lg font-bold leading-normal tracking-[0.015em] shadow-lg shadow-primary/25">
+<span class="truncate">Create Account</span>
+</button>
+<!-- Secondary Action -->
+<button class="flex w-full cursor-pointer items-center justify-center rounded-xl h-12 bg-transparent text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors text-base font-medium leading-normal">
+<span class="truncate">I already have an account</span>
+</button>
+</div>
+</div>
+</body></html>

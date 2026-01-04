@@ -1,0 +1,61 @@
+// Prisma schema for Novel Writer MVP
+// Reference: docs/database-design.md
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email        String   @unique @db.VarChar(255)
+  username     String   @unique @db.VarChar(50)
+  passwordHash String?  @map("password_hash") @db.VarChar(255)
+  avatarUrl    String?  @map("avatar_url") @db.Text
+  provider     String   @default("email") @db.VarChar(50)
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  projects Project[]
+
+  @@map("users")
+}
+
+model Project {
+  id              String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId          String   @map("user_id") @db.Uuid
+  title           String   @db.VarChar(255)
+  description     String?  @db.Text
+  genre           String?  @db.VarChar(100)
+  status          String   @default("draft") @db.VarChar(50)
+  wordCount       Int      @default(0) @map("word_count")
+  targetWordCount Int?     @map("target_word_count")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chapters Chapter[]
+
+  @@index([userId])
+  @@map("projects")
+}
+
+model Chapter {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  projectId  String   @map("project_id") @db.Uuid
+  title      String   @db.VarChar(255)
+  content    String?  @db.Text
+  wordCount  Int      @default(0) @map("word_count")
+  orderIndex Int      @map("order_index")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId, orderIndex])
+  @@map("chapters")
+}
