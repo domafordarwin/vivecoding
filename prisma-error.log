@@ -1,0 +1,52 @@
+prisma:cli:bin Failed to initialize the command state: Error: ENOENT: no such file or directory, open 'C:\Users\domam\AppData\Roaming\prisma-nodejs\Config\commands.json' +1787ms
+[dotenv@17.2.3] injecting env (2) from .env -- tip: ?숋툘  load multiple .env files with { path: ['.env.local', '.env'] }
+[dotenv@17.2.3] injecting env (0) from .env.local -- tip: ?뱻 add observability to secrets: https://dotenvx.com/ops
+prisma:config:defineConfig [default]: '{\n  "loadedFromFile": null\n}' +1430ms
+prisma:config:defineConfig [config.schema]: 'prisma/schema.prisma' +1ms
+prisma:config:defineConfig [config.datasource]: '{}' +0ms
+prisma:config:defineConfig [config.migrations]: '{\n  "path": "prisma/migrations"\n}' +0ms
+prisma:config:loadConfigFromFile Config file loaded in 98.83ms +1ms
+prisma:config:PrismaConfig Parsing PrismaConfigInternal: '{\n' +
+  '  "loadedFromFile": null,\n' +
+  '  "schema": "prisma/schema.prisma",\n' +
+  '  "datasource": {},\n' +
+  '  "migrations": {\n' +
+  '    "path": "prisma/migrations"\n' +
+  '  }\n' +
+  '}' +2ms
+prisma:config:PrismaConfig Short-circuit: input is already a PrismaConfigInternal object +0ms
+Loaded Prisma config from prisma.config.ts.
+
+prisma:engines binaries to download schema-engine +1887ms
+prisma:getSchema Reading schema from single file C:\WorkSpace\gravity_work\skill-up\prisma\schema-test.prisma +108ms
+prisma:getSchema Reading schema from single file C:\WorkSpace\gravity_work\skill-up\prisma\schema-test.prisma +0ms
+prisma:getConfig Using getConfig Wasm +30ms
+prisma:cli:checkpoint Error from tryToReadDataFromSchema() while processing the schema. This is not a fatal error. It will continue without the processed data. +17ms
+prisma:cli:checkpoint {
+  "name": "GetConfigError"
+} +0ms
+prisma:cli:checkpoint runCheckpointClientCheck(): Execution time for getting info: 51.53909999999996 ms +0ms
+prisma:cli:checkpoint runCheckpointClientCheck(): Execution time for "await checkpoint.check(data)": 23.054499999999734 ms +24ms
+prisma:getSchema Reading schema from single file C:\WorkSpace\gravity_work\skill-up\prisma\schema-test.prisma +80ms
+Prisma schema loaded from prisma\schema-test.prisma.
+prisma:getConfig Using getConfig Wasm +2ms
+Error: GetConfigError: Prisma schema validation - (get-config wasm)
+Error code: P1012
+error: The datasource property `url` is no longer supported in schema files. Move connection URLs for Migrate to `prisma.config.ts` and pass either `adapter` for a direct database connection or `accelerateUrl` for Accelerate to the `PrismaClient` constructor. See https://pris.ly/d/config-datasource and https://pris.ly/d/prisma7-client-config
+  -->  prisma\schema-test.prisma:7
+   | 
+ 6 |   provider = "postgresql"
+ 7 |   url      = "postgresql://user:pass@localhost:5432/test"
+   | 
+
+Validation Error Count: 1
+[Context: getConfig]
+
+Prisma CLI Version : 7.2.0
+    at C:\WorkSpace\gravity_work\skill-up\node_modules\prisma\build\index.js:203:1073
+    at e.with (C:\WorkSpace\gravity_work\skill-up\node_modules\prisma\build\index.js:163:41041)
+    at Sy (C:\WorkSpace\gravity_work\skill-up\node_modules\prisma\build\index.js:203:1043)
+    at tD (C:\WorkSpace\gravity_work\skill-up\node_modules\prisma\build\index.js:222:1318)
+    at e.parse (C:\WorkSpace\gravity_work\skill-up\node_modules\prisma\build\index.js:4077:538)
+    at async e.parse (C:\WorkSpace\gravity_work\skill-up\node_modules\prisma\build\index.js:1060:2319)
+    at async Cir (C:\WorkSpace\gravity_work\skill-up\node_modules\prisma\build\index.js:4915:136)
