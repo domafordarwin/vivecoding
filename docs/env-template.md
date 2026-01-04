@@ -1,7 +1,10 @@
 # .env 템플릿
 
-# Database
-DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE?schema=public"
+# Database (Supabase)
+# DATABASE_URL: Connection pooler URL (for runtime queries)
+DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE?pgbouncer=true"
+# DIRECT_URL: Direct connection URL (for migrations/CLI)
+DIRECT_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE"
 
 # NextAuth
 NEXTAUTH_SECRET="your-secret-here-generate-with-openssl-rand-base64-32"

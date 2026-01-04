@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
+import { Prisma } from "@prisma/client";
 
 
 
@@ -71,7 +72,8 @@ export async function POST(
     const wordCount = countWords(content);
 
     // Update chapter and project word count
-    const updatedChapter = await prisma.$transaction(async (tx) => {
+    //const updatedChapter = await prisma.$transaction(async (tx: any) => {
+    const updatedChapter = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
       const updated = await tx.chapter.update({
         where: { id },
         data: {
@@ -81,19 +83,16 @@ export async function POST(
       });
 
       // Recalculate total word count for project
-      const allChapters = await tx.chapter.findMany({
+      const chapters = await tx.chapter.findMany({
         where: { projectId: chapter.project.id },
         select: { wordCount: true },
       });
 
-      const totalWordCount = allChapters.reduce(
-        (sum, ch) => sum + ch.wordCount,
-        0
-      );
+      const totalProjectWordCount = chapters.reduce((sum: any, ch: any) => sum + ch.wordCount, 0);
 
       await tx.project.update({
         where: { id: chapter.project.id },
-        data: { wordCount: totalWordCount },
+        data: { wordCount: totalProjectWordCount },
       });
 
       return updated;
