@@ -66,7 +66,7 @@ export default function RegisterPage() {
 
       // Auto-login after successful registration
       const signInResult = await signIn("credentials", {
-        email: data.email,
+        identifier: data.email,
         password: data.password,
         redirect: false,
       });
@@ -74,7 +74,15 @@ export default function RegisterPage() {
       if (signInResult?.error) {
         router.push("/login");
       } else {
-        router.push("/projects");
+        // Fetch session to get user role for proper redirect
+        const sessionRes = await fetch("/api/auth/session");
+        const session = await sessionRes.json();
+        
+        if (session?.user?.role === "admin") {
+          router.push("/admin");
+        } else {
+          router.push("/projects");
+        }
       }
     } catch {
       setError("An error occurred. Please try again.");

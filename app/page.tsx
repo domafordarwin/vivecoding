@@ -4,9 +4,12 @@ import { auth } from "@/lib/auth";
 export default async function Home() {
   const session = await auth();
 
-  // If user is logged in, redirect to dashboard
+  // If user is logged in, redirect based on role
   if (session?.user) {
-    redirect("/dashboard");
+    if (session.user.role === "admin") {
+      redirect("/admin");
+    }
+    redirect("/projects");
   }
 
   // If not logged in, redirect to login page

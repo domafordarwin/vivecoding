@@ -12,8 +12,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 const loginSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(8, "Password must be at least 8 characters"),
+  identifier: z.string().min(1, "이메일 또는 사용자명을 입력해주세요"),
+  password: z.string().min(8, "비밀번호는 최소 8자 이상이어야 합니다"),
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
@@ -38,15 +38,23 @@ export default function LoginPage() {
 
     try {
       const result = await signIn("credentials", {
-        email: data.email,
+        identifier: data.identifier,
         password: data.password,
         redirect: false,
       });
 
       if (result?.error) {
-        setError("Invalid email or password");
+        setError("이메일/사용자명 또는 비밀번호가 올바르지 않습니다");
       } else {
-        router.push("/projects");
+        // Fetch session to get user role for proper redirect
+        const sessionRes = await fetch("/api/auth/session");
+        const session = await sessionRes.json();
+        
+        if (session?.user?.role === "admin") {
+          router.push("/admin");
+        } else {
+          router.push("/projects");
+        }
       }
     } catch {
       setError("An error occurred. Please try again.");
@@ -56,7 +64,7 @@ export default function LoginPage() {
   };
 
   const handleSocialLogin = (provider: string) => {
-    signIn(provider, { callbackUrl: "/projects" });
+    signIn(provider, { callbackUrl: "/" });
   };
 
   return (
@@ -94,21 +102,21 @@ export default function LoginPage() {
           </div>
         )}
 
-        {/* Email Field */}
+        {/* Identifier Field (Email or Username) */}
         <div className="flex flex-col gap-2">
           <Label
-            htmlFor="email"
+            htmlFor="identifier"
             className="text-slate-900 dark:text-white text-sm font-medium"
           >
-            Email Address
+            이메일 또는 사용자명
           </Label>
           <div className="relative">
             <Input
-              id="email"
-              type="email"
-              placeholder="Enter your email"
+              id="identifier"
+              type="text"
+              placeholder="이메일 또는 사용자명 입력"
               className="w-full rounded-lg border-slate-200 dark:border-slate-800 bg-white dark:bg-[#1c2533] text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 px-4 py-3.5 pr-12 text-base focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-200 shadow-sm h-auto"
-              {...register("email")}
+              {...register("identifier")}
             />
             <div className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
               <svg
@@ -121,13 +129,13 @@ export default function LoginPage() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                 />
               </svg>
             </div>
           </div>
-          {errors.email && (
-            <p className="text-red-500 text-xs">{errors.email.message}</p>
+          {errors.identifier && (
+            <p className="text-red-500 text-xs">{errors.identifier.message}</p>
           )}
         </div>
 

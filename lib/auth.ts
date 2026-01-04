@@ -7,7 +7,7 @@ import { z } from "zod";
 import { prisma } from "./db";
 
 const credentialsSchema = z.object({
-  email: z.string().email(),
+  identifier: z.string().min(1), // 이메일 또는 사용자명
   password: z.string().min(8),
 });
 
@@ -25,7 +25,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     Credentials({
       name: "credentials",
       credentials: {
-        email: { label: "Email", type: "email" },
+        identifier: { label: "Email or Username", type: "text" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
@@ -34,10 +34,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           return null;
         }
 
-        const { email, password } = parsed.data;
+        const { identifier, password } = parsed.data;
 
-        const user = await prisma.user.findUnique({
-          where: { email },
+        // 이메일 또는 사용자명으로 사용자 검색
+        const user = await prisma.user.findFirst({
+          where: {
+            OR: [
+              { email: identifier },
+              { username: identifier },
+            ],
+          },
         });
 
         if (!user || !user.passwordHash) {
@@ -54,6 +60,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           email: user.email,
           name: user.username,
           image: user.avatarUrl,
+          role: user.role,
+          mustChangePassword: user.mustChangePassword,
         };
       },
     }),
@@ -68,15 +76,30 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     // }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger }) {
       if (user) {
         token.id = user.id;
+        token.role = user.role;
+        token.mustChangePassword = user.mustChangePassword;
+      }
+      // 세션 업데이트 시 DB에서 최신 정보 가져오기
+      if (trigger === "update" && token.id) {
+        const dbUser = await prisma.user.findUnique({
+          where: { id: token.id as string },
+          select: { role: true, mustChangePassword: true },
+        });
+        if (dbUser) {
+          token.role = dbUser.role;
+          token.mustChangePassword = dbUser.mustChangePassword;
+        }
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user && token.id) {
         session.user.id = token.id as string;
+        session.user.role = token.role as string;
+        session.user.mustChangePassword = token.mustChangePassword as boolean;
       }
       return session;
     },
