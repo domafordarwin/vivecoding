@@ -3,9 +3,7 @@ import { z } from "zod";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 
-type RouteParams = {
-  params: Promise<{ id: string }>;
-};
+
 
 // Helper to count words from HTML content
 function countWords(html: string): number {
@@ -19,10 +17,13 @@ const autosaveSchema = z.object({
 });
 
 // POST /api/chapters/[id]/autosave - Auto-save chapter content
-export async function POST(request: NextRequest, { params }: RouteParams) {
+export async function POST(
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
   try {
     const session = await auth();
-    const { id } = await params;
+    const { id } = await context.params;
 
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

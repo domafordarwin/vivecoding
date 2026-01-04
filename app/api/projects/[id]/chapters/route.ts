@@ -3,15 +3,16 @@ import { z } from "zod";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 
-type RouteParams = {
-  params: Promise<{ id: string }>;
-};
+
 
 // GET /api/projects/[id]/chapters - Get all chapters for a project
-export async function GET(request: NextRequest, { params }: RouteParams) {
+export async function GET(
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
   try {
     const session = await auth();
-    const { id: projectId } = await params;
+    const { id: projectId } = await context.params;
 
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -61,10 +62,13 @@ const createChapterSchema = z.object({
   content: z.string().optional(),
 });
 
-export async function POST(request: NextRequest, { params }: RouteParams) {
+export async function POST(
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
   try {
     const session = await auth();
-    const { id: projectId } = await params;
+    const { id: projectId } = await context.params;
 
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

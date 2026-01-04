@@ -3,9 +3,7 @@ import { z } from "zod";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 
-type RouteParams = {
-  params: Promise<{ id: string }>;
-};
+
 
 // Helper to count words from HTML content
 function countWords(html: string): number {
@@ -15,10 +13,13 @@ function countWords(html: string): number {
 }
 
 // GET /api/chapters/[id] - Get single chapter
-export async function GET(request: NextRequest, { params }: RouteParams) {
+export async function GET(
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
   try {
     const session = await auth();
-    const { id } = await params;
+    const { id } = await context.params;
 
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -64,10 +65,13 @@ const updateChapterSchema = z.object({
   content: z.string().optional(),
 });
 
-export async function PUT(request: NextRequest, { params }: RouteParams) {
+export async function PUT(
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
   try {
     const session = await auth();
-    const { id } = await params;
+    const { id } = await context.params;
 
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -155,10 +159,13 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
 }
 
 // DELETE /api/chapters/[id] - Delete chapter
-export async function DELETE(request: NextRequest, { params }: RouteParams) {
+export async function DELETE(
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
   try {
     const session = await auth();
-    const { id } = await params;
+    const { id } = await context.params;
 
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

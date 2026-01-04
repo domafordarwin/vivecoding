@@ -7,10 +7,6 @@ import { exportToDOCX } from "@/lib/export/docx";
 
 export const runtime = "nodejs";
 
-type RouteParams = {
-  params: { id: string };
-};
-
 const exportSchema = z.object({
   format: z.enum(["txt", "docx"]),
 });
@@ -43,10 +39,13 @@ function buildContentDisposition(filename: string, asciiFallback: string): strin
 }
 
 // POST /api/projects/[id]/export - Export project
-export async function POST(request: NextRequest, { params }: RouteParams) {
+export async function POST(
+  request: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
   try {
     const session = await auth();
-    const { id } = await params;
+    const { id } = await context.params;
 
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });

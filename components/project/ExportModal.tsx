@@ -24,17 +24,17 @@ const formatOptions: {
   title: string;
   description: string;
 }[] = [
-  {
-    format: "txt",
-    title: "Plain Text (.txt)",
-    description: "Simple text format, compatible everywhere",
-  },
-  {
-    format: "docx",
-    title: "Microsoft Word (.docx)",
-    description: "Preserves formatting, editable in Word",
-  },
-];
+    {
+      format: "txt",
+      title: "Plain Text (.txt)",
+      description: "Simple text format, compatible everywhere",
+    },
+    {
+      format: "docx",
+      title: "Microsoft Word (.docx)",
+      description: "Preserves formatting, editable in Word",
+    },
+  ];
 
 export function ExportModal({
   open,
@@ -91,13 +91,18 @@ export function ExportModal({
           // ignore
         }
 
-        const message =
-          (serverError &&
-            typeof serverError === "object" &&
-            "error" in serverError &&
-            typeof (serverError as { error?: unknown }).error === "string" &&
-            (serverError as { error: string }).error) ||
-          "Failed to export project";
+        let message = "Failed to export project";
+        if (
+          serverError &&
+          typeof serverError === "object" &&
+          "error" in serverError &&
+          typeof (serverError as { error?: unknown }).error === "string"
+        ) {
+          const errorValue = (serverError as { error: unknown }).error;
+          if (typeof errorValue === "string") {
+            message = errorValue;
+          }
+        }
 
         setErrorMessage(message);
         return;
@@ -193,19 +198,17 @@ export function ExportModal({
               key={option.format}
               type="button"
               onClick={() => setSelectedFormat(option.format)}
-              className={`w-full flex items-center gap-4 p-4 rounded-xl border-2 transition-all duration-200 ${
-                selectedFormat === option.format
-                  ? "border-primary bg-primary/5 dark:bg-primary/10"
-                  : "border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800"
-              }`}
+              className={`w-full flex items-center gap-4 p-4 rounded-xl border-2 transition-all duration-200 ${selectedFormat === option.format
+                ? "border-primary bg-primary/5 dark:bg-primary/10"
+                : "border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800"
+                }`}
             >
               {/* Icon */}
               <div
-                className={`flex-shrink-0 ${
-                  selectedFormat === option.format
-                    ? "text-primary"
-                    : "text-gray-400 dark:text-gray-500"
-                }`}
+                className={`flex-shrink-0 ${selectedFormat === option.format
+                  ? "text-primary"
+                  : "text-gray-400 dark:text-gray-500"
+                  }`}
               >
                 {renderFormatIcon(option.format)}
               </div>
@@ -213,11 +216,10 @@ export function ExportModal({
               {/* Text */}
               <div className="flex-1 text-left">
                 <p
-                  className={`font-semibold ${
-                    selectedFormat === option.format
-                      ? "text-primary"
-                      : "text-gray-900 dark:text-white"
-                  }`}
+                  className={`font-semibold ${selectedFormat === option.format
+                    ? "text-primary"
+                    : "text-gray-900 dark:text-white"
+                    }`}
                 >
                   {option.title}
                 </p>
@@ -228,11 +230,10 @@ export function ExportModal({
 
               {/* Radio indicator */}
               <div
-                className={`flex-shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                  selectedFormat === option.format
-                    ? "border-primary"
-                    : "border-gray-300 dark:border-gray-600"
-                }`}
+                className={`flex-shrink-0 w-5 h-5 rounded-full border-2 flex items-center justify-center ${selectedFormat === option.format
+                  ? "border-primary"
+                  : "border-gray-300 dark:border-gray-600"
+                  }`}
               >
                 {selectedFormat === option.format && (
                   <div className="w-2.5 h-2.5 rounded-full bg-primary" />
