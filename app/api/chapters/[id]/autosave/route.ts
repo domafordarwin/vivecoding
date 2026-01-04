@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
-import { Prisma } from "@prisma/client";
 
 
 
@@ -72,7 +71,7 @@ export async function POST(
     const wordCount = countWords(content);
 
     // Update chapter and project word count
-    const updatedChapter = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+    const updatedChapter = await prisma.$transaction(async (tx) => {
       const updated = await tx.chapter.update({
         where: { id },
         data: {

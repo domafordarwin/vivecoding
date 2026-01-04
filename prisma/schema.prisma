@@ -7,8 +7,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url               = env("DATABASE_URL")  // 일반 실행(앱 구동) 시 사용
-  directUrl         = env("DIRECT_URL")     // 마이그레이션 시 사용
 }
 
 model User {
